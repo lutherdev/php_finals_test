@@ -1,0 +1,65 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: url('/pages/profile/assets/img/rockBG2.png') no-repeat center center/cover;
+  color: #f5f3e7;
+}
+
+.view-outer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  min-height: 80vh;
+}
+
+.view {
+  background-color: rgba(44, 36, 26, 0.85);
+  border: 5px solid #d4af37;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+  padding: 30px 25px;
+  width: 400px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.view h2 {
+  font-size: 28px;
+  color: #ffecb3;
+  text-shadow: 1px 1px 2px #000;
+}
+
+.items-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  width: 90%;
+  max-width: 1200px;
+}
+
+.item-card {
+  background-color: rgba(60, 50, 30, 0.9);
+  border: 3px solid #a9823a;
+  border-radius: 10px;
+  padding: 20px;
+  color: #f5f3e7;
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.item-card:hover {
+  transform: scale(1.03);
+}
+
+.item-card h3 {
+  margin: 10px 0;
+  font-size: 20px;
+  color: #ffd700;
+}
+
+.item-card p {
+  font-size: 14px;
+  margin: 5px 0;
+}

@@ -1,0 +1,88 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+.edit-profile-outer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 140vh;
+  padding: 40px 20px;
+  background: url('/pages/profile/assets/img/rockBG2.png') no-repeat center center/cover;
+}
+
+.edit-profile-card {
+  background-color: rgba(44, 36, 26, 0.95);
+  border: 5px solid #d4af37;
+  border-radius: 12px;
+  padding: 30px;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  color: #f5f3e7;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+}
+
+.edit-profile-card h2 {
+  font-size: 28px;
+  color: #ffecb3;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 2px #000;
+}
+
+.edit-profile-card label {
+  display: block;
+  text-align: left;
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+.edit-profile-card input[type="text"],
+.edit-profile-card input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 2px solid #a9823a;
+  background-color: #f5f3e7;
+  font-size: 16px;
+  color: #000;
+}
+
+.profile-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.edit-profile-card .gold-btn {
+  background-color: #a9823a;
+  border: 2px solid #d4af37;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'MedievalSharp', cursive;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.edit-profile-card .gold-btn:hover {
+  background-color: #d4af37;
+  color: #000;
+}
+
+.edit-profile-card .back-btn {
+  background-color: transparent;
+  border: 2px solid #ccc;
+  color: #ccc;
+}
+
+.edit-profile-card .back-btn:hover {
+  background-color: #ccc;
+  color: #000;
+}
+

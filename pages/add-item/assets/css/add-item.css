@@ -1,0 +1,107 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'MedievalSharp', serif, cursive;
+  background: linear-gradient(rgba(11,6,6,0.9), rgba(30,15,15,0.9)),
+              url('/pages/admin-page/assets/img/admin_bg1.jpg') no-repeat center/cover;
+  color: #f5f3e7;
+  min-height: 100vh;
+}
+
+.add-outer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 20px;
+}
+
+.add {
+  background-color: rgba(44, 36, 26, 0.88);
+  border: 5px solid #d4af37;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.6);
+  padding: 40px 30px;
+  width: 100%;
+  max-width: 420px;
+}
+
+.add h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 28px;
+  color: #ffecb3;
+  text-shadow: 1px 1px 2px #000;
+}
+
+.add label {
+  display: block;
+  margin-top: 20px;
+  color: #f5deb3;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.add input[type="text"],
+.add input[type="number"],
+.add input[type="file"],
+.add select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border: 2px solid #a9823a;
+  border-radius: 6px;
+  background-color: #f9f3e3;
+  font-size: 15px;
+  color: #222;
+}
+
+.add input:focus,
+.add select:focus {
+  outline: none;
+  border-color: #ffd700;
+  box-shadow: 0 0 8px #d4af37;
+}
+
+.add select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+}
+
+.add input[type="file"] {
+  padding: 6px;
+  background-color: #fff9e6;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.add button {
+  margin-top: 30px;
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(145deg, #a9823a, #d8b365);
+  border: none;
+  border-radius: 8px;
+  color: #fff7d4;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.add button:hover {
+  background: linear-gradient(145deg, #cfa64d, #f6d87a);
+  transform: scale(1.03);
+}
+
+p {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}

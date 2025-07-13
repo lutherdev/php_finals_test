@@ -1,0 +1,89 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #1b1b1b;
+}
+
+.profile-outer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 20px;
+  min-height: 90vh; 
+}
+
+.profile-card {
+  background: rgba(248, 239, 216, 0.95);
+  border: 6px double #5e451a;
+  padding: 40px;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 0 35px rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+.profile-card::before,
+.profile-card::after {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: url('/pages/profile/assets/img/seal.png') no-repeat center center/contain;
+}
+
+.profile-card::before {
+  top: -30px;
+  left: -30px;
+}
+
+.profile-card::after {
+  bottom: -30px;
+  right: -30px;
+}
+
+.profile-card h2 {
+  font-size: 32px;
+  color: #3e2f1c;
+  margin-bottom: 25px;
+  text-align: center;
+  border-bottom: 2px solid #5e451a;
+  padding-bottom: 10px;
+}
+
+.profile-card p {
+  font-size: 18px;
+  color: #2c1c0f;
+  margin: 15px 0;
+  line-height: 1.5;
+}
+
+.profile-card p strong {
+  color: #5e451a;
+  text-shadow: 0.5px 0.5px #e0d0ac;
+}
+
+.profile-buttons {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.gold-btn {
+  background: linear-gradient(to bottom, #c19a5b, #a87922);
+  border: 3px ridge #5e451a;
+  color: #fff8dc;
+  padding: 12px 25px;
+  font-size: 16px;
+  border-radius: 8px;
+  margin: 0 8px;
+  font-family: 'MedievalSharp', cursive;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.gold-btn:hover {
+  background: #ffd700;
+  color: #3e2f1c;
+  transform: scale(1.05);
+}

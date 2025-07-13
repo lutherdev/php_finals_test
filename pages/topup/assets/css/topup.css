@@ -1,0 +1,94 @@
+body{
+  margin: 0;
+  padding: 0;
+}
+
+.topup-outer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 110vh;
+  padding: 40px 20px;
+  background: url('/pages/profile/assets/img/rockBG2.png') no-repeat center center/cover;
+}
+
+.topup-card {
+  background-color: rgba(44, 36, 26, 0.95);
+  border: 5px solid #d4af37;
+  border-radius: 12px;
+  padding: 30px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  color: #f5f3e7;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+}
+
+.topup-card h2 {
+  font-size: 28px;
+  color: #ffecb3;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 2px #000;
+}
+
+.topup-card label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.topup-card input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid #a9823a;
+  margin-bottom: 20px;
+  font-size: 16px;
+  background-color: #f5f3e7;
+  color: #000;
+}
+
+.gold-btn {
+  background-color: #a9823a;
+  border: 2px solid #d4af37;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'MedievalSharp', cursive;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+  margin: 5px;
+  transition: all 0.2s ease;
+}
+
+.gold-btn:hover {
+  background-color: #d4af37;
+  color: #000;
+}
+
+.error {
+  color: #ff6961;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.topup-card input[type="text"],
+.topup-card input[type="password"],
+.topup-card input[type="month"],
+.topup-card input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid #a9823a;
+  margin-bottom: 20px;
+  font-size: 16px;
+  background-color: #f5f3e7;
+  color: #000;
+  font-family: 'MedievalSharp', cursive;
+}
+
+.topup-card input::placeholder {
+  color: #888;
+}

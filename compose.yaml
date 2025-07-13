@@ -1,0 +1,35 @@
+services:
+  mineforge:
+    build:
+      context: .
+    container_name: mineforge-service
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./public/uploads/images:/var/www/html/public/uploads/images
+    develop:
+      watch:
+        - path: .
+          target: /var/www/html
+          action: sync
+        - path: ./composer.json
+          action: rebuild
+        - path: ./composer.lock
+          action: rebuild
+    depends_on:
+      - postgresql
+
+  postgresql:
+    image: postgres:15
+    container_name: mineforge-postgresql
+    restart: always
+    environment:
+      POSTGRES_USER: steve
+      POSTGRES_PASSWORD: stev3Miner
+      POSTGRES_DB: miningDB
+    ports:
+      - "3333:5432"
+
+volumes:
+  mineforge-postgresql:
+    driver: local
