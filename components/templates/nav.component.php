@@ -1,26 +1,31 @@
 <?php
+    require_once BASE_PATH . "/bootstrap.php";
     $site_name = 'MineForge';
-
     $user_role = $_SESSION['user']['role'] ?? 'customer';
     $nav_config = require STATICDATAS_PATH . '/navConfig.staticData.php';
     $navbar_items = $nav_config[$user_role] ?? [];
-
     $current_page = basename($_SERVER['PHP_SELF']);
-    $logo_path = $logo_path ?? 'assets/img/logo.png';
+    $logo_path = $logo_path ?? ASSETS_PATH . '/img/logo.png';
     $alt_logo = $alt_logo ?? $site_name . ' logo';
 ?>
-
-
+<link rel="stylesheet" href="/assets/css/nav.component.css">
     <nav class="navbar">
         <div class="navbar-container">
             <div class="navbar-logo">
                 <a href="homepage">
+                <a href="home-page">
                 <img src ="<?php echo htmlspecialchars($logo); ?>"
                      alt ="<?php echo htmlspecialchars($alt_logo); ?>"
                      class="logo-img">
                      <span class="logo-text">MineForge</span>
                 </a>
             </div>
+
+                <button class="burger-menu" aria-label="Toggle navigation">
+                    <span class="burger-line"></span>
+                    <span class="burger-line"></span>
+                    <span class="burger-line"></span>
+                </button>
 
             <div class="navbar-menu">
                 <?php foreach ($navbar_items as $title => $url): ?>
@@ -37,7 +42,6 @@
                     <?php else: ?>
                         <a href="<?php echo htmlspecialchars($url); ?>"
                         class="navbar-item <?php echo ($current_page === $url) ? 'is-active' : ''; ?>">
-
                         <?php echo htmlspecialchars($title); ?>
                         </a>
                     <?php endif; ?>
@@ -45,5 +49,4 @@
             </div>
          </div>
     </nav>
-    
-        <script src="../assets/js/nav.js" defer></script>
+        <script src="../assets/js/nav.component.js" defer></script>

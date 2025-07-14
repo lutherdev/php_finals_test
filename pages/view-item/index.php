@@ -8,28 +8,43 @@ if (!isset($_SESSION['user'])) {
 }
 $items = getAllItems();
 ?>
-
-<body>
-  <div class="view-outer">
+<div class="view-outer">
+  <div class="in-outer">
     <div class="view">
-      <h2>All Items</h2>
+      <h2>ALL ITEMS</h2>
     </div>
 
-    <div class="items-container">
+    <div class="table-container">
       <?php if (count($items) === 0): ?>
-        <p style="color: #fff;">No items found.</p>
+        <p style="color: #fff;">NO USERS.</p>
       <?php else: ?>
-        <?php foreach ($items as $item): ?>
-          <div class="item-card">
-            <h3><strong>ID: </strong></h3><p><?= htmlspecialchars($item['id']) ?></p>
-            <h3><?= htmlspecialchars($item['name']) ?></h3>
-            <p><strong>Description: </strong> <?= htmlspecialchars($item['description']) ?></p>
-            <p><strong>Price:</strong> <?= htmlspecialchars($item['price']) ?> gold</p>
-            <p><strong>Quantity:</strong> <?= htmlspecialchars($item['quantity']) ?></p>
-            <p><strong>Category:</strong> <?= htmlspecialchars($item['category']) ?></p>
-          </div>
-        <?php endforeach; ?>
+        <table class="user-table">
+          <thead>
+            <tr>
+              <th>Item ID#</th>
+              <th>Item name</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach ($items as $item): ?>
+              <tr>
+                <td><?= htmlspecialchars($item['id']) ?></td>
+                <td><?= ucwords(htmlspecialchars($item['name'])) ?></td>
+                <td><?= ucwords(htmlspecialchars($item['description'])) ?></td>
+                <td><?= ucwords(htmlspecialchars($item['category'])) ?></td>
+                <td><?= ucwords(htmlspecialchars($item['price'])) ?></td>
+                <td><?= ucwords(htmlspecialchars($item['quantity'])) ?></td>
+                <td><?= htmlspecialchars($item['status']) ?></td>
+              </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
       <?php endif; ?>
     </div>
   </div>
-</body>
+</div>

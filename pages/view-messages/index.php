@@ -10,22 +10,38 @@ $messages = getAllMessages();
 ?>
 
 <div class="view-outer">
+  <div class="in-outer">
     <div class="view">
-        <h2>EXISTING MESSAGES</h2>
+      <h2>MESSAGES</h2>
     </div>
-    <div class="items-container">
-        <?php if (count($messages) === 0): ?>
-            <p style="color: #fff;">NO MESSAGES.</p>
-        <?php else: ?>
+
+    <div class="table-container">
+      <?php if (count($messages) === 0): ?>
+        <p style="color: #fff;">NO MESSAGES.</p>
+      <?php else: ?>
+        <table class="user-table">
+          <thead>
+            <tr>
+              <th>Message ID</th>
+              <th>Name</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Message</th>
+            </tr>
+          </thead>
+          <tbody>
             <?php foreach ($messages as $message): ?>
-                <div class="item-card">
-                    <h3>Message ID: <?= htmlspecialchars($message['id']) ?></h3>
-                    <p><strong>Name: </strong> <?= htmlspecialchars($message['name']) ?></p>
-                    <p><strong>Username: </strong> <?= htmlspecialchars($message['username']) ?></p>
-                    <p><strong>Email: </strong> <?= htmlspecialchars($message['email']) ?></p>
-                    <p><strong>Message: </strong> <?= htmlspecialchars($message['message']) ?></p>
-                </div>
+              <tr>
+                <td><?= htmlspecialchars($message['id']) ?></td>
+                <td><?= ucwords(htmlspecialchars($message['name'])) ?></td>
+                <td><?= htmlspecialchars($message['username']) ?></td>
+                <td><?= htmlspecialchars($message['email']) ?></td>
+                <td><?= nl2br(htmlspecialchars($message['message'])) ?></td>
+              </tr>
             <?php endforeach; ?>
-        <?php endif; ?>
+          </tbody>
+        </table>
+      <?php endif; ?>
     </div>
+  </div>
 </div>

@@ -1,5 +1,6 @@
 <?php
 require_once 'validators.util.php';
+require_once UTILS_PATH . '/users.util.php';
 class Auth{
     public static function init(): void {
     if (session_status() === PHP_SESSION_NONE) { //IF SESSION IS NONE : LIKE NO STARTED SESSION THEN =
@@ -23,9 +24,7 @@ class Auth{
     //TODO: CREATE A TRY CATCH FUNCTION FOR FETCHING A ROW, ALSO A DEBUG IF WE GOT A ROW? AND A PASSWWORD VERIFY
     public static function attempt(PDO $pdo, string $username, string $password): string {
         try {
-            $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username");
-            $stmt->execute([':username' => $username]);
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            $user = getUserDataa($username);
             if (!$user) {
                 return 'wrong_username';
             }
@@ -41,50 +40,26 @@ class Auth{
     }
 
     public static function register(PDO $pdo, array $data): string {
-        $username = trim($data['username']);
-        $password = $data['password'];
-        $firstname = trim($data['firstname']);
-        $lastname = trim($data['lastname']);
-        //$role = trim($data['role']); REMOVE AUTOMATIC CUSTOMER
-        $street = 'p campa'; //stays  the same
-        $city = 'Nicanor'; //also small caps
-        $province = 'Metro Manila'; //should be turn to small caps but if output it should be first letter of first word capital
-        $wallet = floatval($data['wallet']);
-
-        if (($usernameError = validateUsername($username)) !== true) {
+        $userData = [
+            'username' => $data['username'],
+            'password' => $data['password'],
+            'first_name' => trim($data['firstname']),
+            'last_name' => trim($data['lastname']),
+            'street' => trim($data['street']),
+            'province' => trim($data['province']),
+            'city' => trim($data['city']),
+        ];
+        if (($usernameError = validateUsername($userData['username'])) !== true) {
             return $usernameError;
         }
-
-        if (($passwordError = validatePassword($password)) !== true) {
+        if (($passwordError = validatePassword($userData['password'])) !== true) {
             return $passwordError;
         }
-
         try {
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-            $stmt = $pdo->prepare("
-                INSERT INTO users (username, password, first_name, last_name, street, city, province, wallet)
-                VALUES (:username, :password, :firstname, :lastname, :street, :city, :prov, :wallet)
-            ");
-
-            $stmt->execute([
-                ':username' => $username,
-                ':password' => $hashedPassword,
-                ':firstname' => $firstname,
-                ':lastname' => $lastname,
-                ':street' => $street,
-                ':city' => $city,
-                ':prov' => $province,
-                ':wallet' => $wallet
-            ]);
-
-            $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username");
-            $stmt->execute([':username' => $username]);
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
+            insertUser($pdo, $userData);
+            $user = getUserDataa($userData['username']);
             self::sessionSet($user);
             return 'success';
-
         } catch (PDOException $e) {
             error_log("Registration failed: " . $e->getMessage());
             return 'db_error';
@@ -120,9 +95,7 @@ class Auth{
     }
 
     public static function getData(PDO $pdo, string $username){
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username");
-        $stmt->execute([':username' => $username]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $user = getUserDataa($username);
         if (!$user){
             return 'no_username';
         }
@@ -130,11 +103,6 @@ class Auth{
         return $user;
     }
 
-    public static function topUpWallet($pdo, $userId, $amount) {
-        $stmt = $pdo->prepare("UPDATE users SET wallet = wallet + ? WHERE id = ?");
-        $stmt->execute([$amount, $userId]);
-
-    }
 
     public static function checkUser($pdo, $username){
         $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");

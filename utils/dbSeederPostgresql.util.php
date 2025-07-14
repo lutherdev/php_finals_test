@@ -5,6 +5,8 @@ require_once 'bootstrap.php';
 
 require_once DUMMIES_PATH . '/users.staticData.php';
 require_once DUMMIES_PATH . '/items.staticData.php';
+require_once UTILS_PATH . '/items.util.php';
+require_once UTILS_PATH . '/users.util.php';
 
 $dsn = "pgsql:host={$dbConfig['pgHost']};port={$dbConfig['pgPort']};dbname={$dbConfig['pgDB']}";
 
@@ -12,76 +14,39 @@ try {
     $pdo = new PDO($dsn, $dbConfig['pgUser'], $dbConfig['pgPassword'], [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
     ]);
-
     echo "Connected to PostgreSQL!\n";
-
     $checkStmt = $pdo->query("SELECT to_regclass('public.users')");
     $tableExists = $checkStmt->fetchColumn();
 
     if (!$tableExists) {
         throw new Exception("Table 'users' does not exist. Please run migrations first.");
     }
-
     echo "Seeding users…\n";
-
     $pdo->beginTransaction();
-
-    $stmt = $pdo->prepare("
-        INSERT INTO users (username, password, first_name, last_name, role, street, city, province, wallet)
-        VALUES (:username, :password, :first_name, :last_name, :role, :street, :city, :province, :wallet)
-    ");
-
     foreach ($users as $u) {
         try {
-            $stmt->execute([
-                ':username' => $u['username'],
-                ':role'     => $u['role'],
-                ':first_name'       => $u['first_name'],
-                ':last_name'       => $u['last_name'],
-                ':password'       => password_hash($u['password'], PASSWORD_DEFAULT),
-                ':street' => $u['street'],
-                ':province' => $u['province'],
-                ':city' => $u['city'],
-                ':wallet'       => $u['wallet'],
-            ]);
+            insertUser($pdo, $u);
             echo "Inserted user: {$u['username']}\n";
         } catch (PDOException $e) {
             echo "Failed to insert {$u['username']}: " . $e->getMessage() . "\n";
         }
     }
-
     $pdo->commit();
-
     echo "All users seeded.\n\n";
 
 
-    echo "Seeding items…\n";
-
+    echo "Seeding items…\n";  
     $pdo->beginTransaction();
-
-    // $stmt = $pdo->prepare("
-    //     INSERT INTO items (name, price, description, quantity, category, status)
-    //     VALUES (:item_name, :price, :description, :quantity, :category, :status)
-    // ");
-
     foreach ($products as $item) {
-    $stmt = $pdo->prepare("INSERT INTO items (name, price, description, quantity, category, img_path, status)
-                        VALUES (:name, :price, :desc, :qty, :cat, :img, :status)");
-    $stmt->execute([
-        ':name' => $item['name'],
-        ':price' => $item['price'],
-        ':desc' => $item['description'],
-        ':qty' => $item['quantity'],
-        ':cat' => $item['category'],
-        ':img' => basename($item['image']),
-        ':status' => $item['status']
-    ]);
-}
-
+        try {
+            insertItem($pdo, $item);
+            echo "Inserted item: {$item['name']}\n";
+        } catch (PDOException $e) {
+            echo "Failed to item {$item['name']}: " . $e->getMessage() . "\n";
+        }
+    }
     $pdo->commit();
-
     echo "All items seeded.\n\n";
-
 
     $stmt = $pdo->query("SELECT * FROM users");
     $users = $stmt->fetchAll(PDO::FETCH_ASSOC);

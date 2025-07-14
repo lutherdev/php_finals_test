@@ -84,7 +84,7 @@ body {
 
 .mineforge-banner span:first-child {
     border-bottom: 2px solid #d4af37;
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.3rem;
 }
 
 .parch-container {
@@ -123,8 +123,8 @@ body {
     font-size: 3.5rem;
     float: left;
     line-height: 0.5;
-    
 }
+
 .about-story {
     width: 100vw;
     margin-left: calc(-50vw + 50%);
@@ -188,6 +188,7 @@ body {
 .about-service p {
     max-width: 800px;
 }
+
 .about-team {
     background: linear-gradient(rgba(20,10,10,0.9), rgba(40,20,20,0.9));
     padding: 3rem 1rem;

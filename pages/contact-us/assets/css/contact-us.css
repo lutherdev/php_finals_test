@@ -1,31 +1,43 @@
+* {
+  box-sizing: border-box;
+  
+}
+
 body {
   font-family: 'MedievalSharp', cursive, Arial, sans-serif;
   margin: 0;
   background-image: url('../img/rockBG3.png');
+  background-size: cover;
   background-color: #1b1b1b;
   color: #2d1b00;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.center-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding-top: 5%;
 }
 
-* {
-  box-sizing: border-box;
-}
 
 .contactus-container {
+  line-height: 150px;
   display: flex;
   justify-content: space-between;
-  gap: 40px;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .location, .comment {
   flex: 1;
-  padding: 40px 20px;
   background-image: url('../img/agedpaper.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
-  min-height: 600px;
   display: flex;
   flex-direction: column;
   justify-content: center;

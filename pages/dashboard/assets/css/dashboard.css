@@ -6,37 +6,50 @@ body {
 .admin-page {
     font-family: 'Book Antiqua', serif;
     background: linear-gradient(rgba(11,6,6,0.9), rgba(30,15,15,0.9)),
-    url('/pages/admin-page/assets/img/admin_bg1.jpg') no-repeat center/cover;
+    url('/pages/dashboard/assets/img/admin_bg1.jpg') no-repeat center/cover;
     color: #F0E6D2;
-    min-height: 100vh;
     padding-top: 8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .admin-container {
     max-width: 1200px;
     width: 90%;
-    margin: 2rem auto; /* Centers horizontally and adds vertical space */
     padding: 2rem;
     border-radius: 8px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.admin-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 3rem;
+    flex-wrap: wrap;
 }
 
 .admin-grid {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
-    justify-content: center;
-    padding: 1rem;
-    max-width: 800px;
-    width: 100%;
-    margin: 0 auto;
-    justify-content: center;
+    flex: 1 1 45%;
 }
 
+.admin-grid2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    flex: 1 1 45%;
+}
+
+
 .admin-card {
-    flex: 0 1 calc(50% - 1.5rem);
-    max-width: 300px;
-    min-height: 160px;
-    background: url('/pages/admin-page/assets/img/admin_bg.jpg') no-repeat center/cover;    border-radius: 8px;
+    background: url('/pages/dashboard/assets/img/admin_bg.jpg') no-repeat center/cover;
+    border-radius: 8px;
     padding: 2rem;
     border: 1px solid #5C4D3C;
     cursor: pointer;
@@ -46,6 +59,8 @@ body {
     justify-content: center;
     align-items: center;
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    min-height: 160px;
+    min-width: 210px;
 }
 
 .admin-card h3 {
@@ -64,23 +79,4 @@ body {
     transform: translateY(-5px);
     border-color: #D4AF37;
     box-shadow: 0 6px 12px rgba(212, 175, 55, 0.2);
-}
-
-@media (max-width: 600px) {
-    .admin-grid {
-        flex-direction: column;
-    }
-
-    .admin-card {
-        max-width: 100%;
-        padding: 1.5rem;
-    }
-
-    .admin-card h3 {
-        font-size: 1.3rem;
-    }
-
-    .admin-icon {
-        font-size: 2rem;
-    }
 }

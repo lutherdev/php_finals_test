@@ -5,9 +5,9 @@ function getAvailableItems(): array {
     $stmt->execute();
     $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    echo "<pre>";
-    print_r($items);
-    echo "</pre>";
+    // echo "<pre>";
+    // print_r($items);
+    // echo "</pre>";
 
     return $items;
 }
@@ -23,4 +23,21 @@ function getAllItems(): array {
     echo "</pre>";
 
     return $items;
+}
+
+function insertItem($pdo, $item) {
+    $stmt = $pdo->prepare("
+        INSERT INTO items (name, price, description, quantity, category, img_path, status)
+        VALUES (:name, :price, :desc, :qty, :cat, :img, :status)
+    ");
+    
+    $stmt->execute([
+        ':name' => strtolower($item['name']),
+        ':price' => $item['price'],
+        ':desc' => strtolower($item['description']),
+        ':qty' => $item['quantity'],
+        ':cat' => strtolower($item['category']),
+        ':img' => basename($item['image']),
+        ':status' => strtolower($item['status']),
+    ]);
 }

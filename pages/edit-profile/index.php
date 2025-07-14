@@ -6,8 +6,8 @@ if (!isset($_SESSION['user'])) {
     exit;
 }
 $user = Auth::getData($pdo, $_SESSION['user']['username']);
+$success = $_GET['success'] ?? '';
 $error = $_GET['error'] ?? '';
-
 ?>
 
 <div class="edit-profile-outer">
@@ -36,8 +36,11 @@ $error = $_GET['error'] ?? '';
       <button class="gold-btn" type="submit">Save Changes</button>
       <a href="profile-page" class="gold-btn back-btn">Cancel</a>
       <?php if (!empty($error)): ?>
-        <p class="error"><?= htmlspecialchars($error) ?></p>
-      <?php endif; ?>
+          <p class="error"><?= htmlspecialchars($error) ?></p>
+        <?php endif; ?>
+        <?php if (!empty($success)): ?>
+          <p class="error"><?= htmlspecialchars($success) ?></p>
+        <?php endif; ?>
     </form>
   </div>
 </div>

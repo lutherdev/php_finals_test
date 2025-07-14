@@ -1,25 +1,57 @@
 <?php
 require_once BASE_PATH . '/bootstrap.php';
-//require_once STATICDATAS_PATH . '/dummies/store.staticData.php';
-require_once HANDLERS_PATH . '/store.handler.php';
+require_once UTILS_PATH . '/items.util.php';
 $products = getAvailableItems();
+global $pdo;
+if (isset($_SESSION['user'])) {
+    $user = Auth::getData($pdo, $_SESSION['user']['username']);
+}
 
 ?>
+<button id="mobile-category-toggle" class="mobile-category-button">☰ Categories</button>
+
+<button id="mobile-cart-toggle" class="mobile-cart-button">🛒 Cart</button>
+
+<div id="mobile-category-popup" class="mobile-category-popup hidden">
+  <div class="category-popup-content">
+    <aside class="category">
+      <div class="store-filters">
+        <button class="menu-btn active" data-category="all">All</button>
+        <button class="menu-btn" data-category="ore">Ore</button>
+        <button class="menu-btn" data-category="tools">Tools</button>
+        <button class="menu-btn" data-category="gear">Gear</button>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<div id="mobile-cart-popup" class="mobile-cart-popup hidden">
+  <div class="cart-popup-content">
+    <aside class="cart-box">
+      <h2>Cart</h2>
+      <ul id="cart-items-mobile"></ul>
+      <div class="total">Total: ₱<span id="cart-total-mobile">0</span></div>
+      <div class='cart-buttons'>
+        <div class='btn-cancel'><button id="checkout-btn-mobile">CHECKOUT</button></div>
+        <div class='btn-cancel'><button id="cancel-btn-mobile">CANCEL</button></div>
+      </div>
+    </aside>
+  </div>
+</div>
 
 <section class="store-container" id="inventory">
   <div class="store-header">
     <h1>Miner's Ware</h1>
+    <?php if (isset($user['wallet'])): ?>
+      <h1>Wallet: <?= htmlspecialchars($user['wallet']) ?> gold</h1>
+    <?php endif; ?>
     <div class="store-filters">
-      <button class="menu-btn active" data-category="all">All</button>
-      <button class="menu-btn" data-category="ore">Ore</button>
-      <button class="menu-btn" data-category="tools">Tools</button>
-      <button class="menu-btn" data-category="gear">Gear</button>
     </div>
   </div>
 
   <div class="store-main">
     <div class="sidebar">
-      <div class="cart-image-wrapper">
+      <div class="cart-image-wrapper desktop-cart">
         <aside class="cart-box">
           <h2>Cart</h2>
           <ul id="cart-items"></ul>
@@ -31,14 +63,14 @@ $products = getAvailableItems();
         </aside>
       </div>
 
-      <div class="cart-image-wrapper">
-        <aside class="cart-box2">
-          <h2>SAMPLE BOX</h2>
-          <ul>
-            <li>Miner's Helmet<span>₱150</span></li>
-            <li>Gold Nugget<span>₱120</span></li>
-          </ul>
-          <div class="total">Total: ₱270</div>
+      <div class="cart-image-wrapper desktop-category">
+        <aside class="category">
+          <div class="store-filters">
+            <button class="menu-btn active" data-category="all">All</button>
+            <button class="menu-btn" data-category="ore">Ore</button>
+            <button class="menu-btn" data-category="tools">Tools</button>
+            <button class="menu-btn" data-category="gear">Gear</button>
+          </div>
         </aside>
       </div>
     </div>
@@ -49,18 +81,18 @@ $products = getAvailableItems();
         <p style="color:red;">No items found. Check database or item status.</p>
       <?php else: ?>
         <?php foreach ($products as $product): 
-     $imgPublicPath = '/public/uploads/images/' . $product['img_path'];
-     $imgStaticPath = '/pages/store/assets/img/' . $product['img_path'];
+          $imgPublicPath = '/public/uploads/images/' . $product['img_path'];
+          $imgStaticPath = '/pages/store/assets/img/' . $product['img_path'];
 
-    $localUploadPath = BASE_PATH . '/public/uploads/images/' . $product['img_path'];
-    $localStaticPath = BASE_PATH . '/pages/store/assets/img/' . $product['img_path'];
-
+          $localUploadPath = BASE_PATH . '/public/uploads/images/' . $product['img_path'];
+          $localStaticPath = BASE_PATH . '/pages/store/assets/img/' . $product['img_path'];
+          
         if (file_exists($localUploadPath)) {
             $finalImagePath = $imgPublicPath;
         } elseif (file_exists($localStaticPath)) {
             $finalImagePath = $imgStaticPath;
         } else {
-            $finalImagePath = '/assets/img/placeholder.png'; // fallback image
+            $finalImagePath = '/assets/img/placeholder.png';
         }
     ?>
 
@@ -72,7 +104,7 @@ $products = getAvailableItems();
             <p><?= htmlspecialchars($product['quantity']) ?> PIECES LEFT</p>
             <div class="price-action">
               <span class="price">₱<?= number_format($product['price'], 2) ?></span>
-              <button onclick="addToCart('<?= addslashes($product['name']) ?>', <?= $product['price'] ?>, '<?= strtolower($product['category']) ?>')">Add to Cart</button>
+              <button onclick="addToCart('<?= $product['id'] ?>','<?= addslashes($product['name']) ?>', <?= $product['price'] ?>, '<?= strtolower($product['category']) ?>')">Add to Cart</button>
             </div>
           </div>
         </div>

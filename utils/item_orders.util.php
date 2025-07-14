@@ -1,13 +1,9 @@
 <?php
-function getAllItemsUser($user_id): array {
+function getAllItemsUser($id): array {
     global $pdo;
-    $stmt = $pdo->prepare("SELECT * FROM item_orders WHERE user_id = :user_id");
-    $stmt->execute([':user_id' => $user_id]);
+    $stmt = $pdo->prepare("SELECT * FROM item_orders WHERE user_id = :id");
+    $stmt->execute([':id' => $id]);
     $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    echo "<pre>";
-    print_r($items);
-    echo "</pre>";
 
     return $items;
 }
@@ -18,9 +14,6 @@ function getAllOrders(): array {
     $stmt->execute();
     $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    echo "<pre>";
-    print_r($items);
-    echo "</pre>";
 
     return $items;
 }

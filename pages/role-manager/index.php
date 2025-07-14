@@ -6,15 +6,20 @@ if (!isset($_SESSION['user'])) {
 $success = $_GET['success'] ?? '';
 $error = $_GET['error'] ?? '';
 ?>
-
-<div class="remove-outer">
-  <div class="remove">
-    <h2>Remove User</h2>
-    <form action="handlers/remove-user.handler.php" method="POST">
+<div class="edit-outer">
+  <div class="edit">
+    <h2>Role Manager</h2>
+    <form action="handlers/role-manager.handler.php" method="POST">
         <label>username:</label>
         <input type="text" name="username" required>
 
-        <button type="submit">Remove Item</button>
+        <label>New Role:</label>
+        <select name="role" required>
+          <option value="Customer">Customer</option>
+          <option value="Admin">Admin</option>
+        </select>
+
+        <button type="submit">Update Role</button>
         <?php if (!empty($error)): ?>
           <p class="error"><?= htmlspecialchars($error) ?></p>
         <?php endif; ?>
@@ -24,4 +29,3 @@ $error = $_GET['error'] ?? '';
     </form>
   </div>
 </div>
-<script src = '/pages/remove-item/assets/js/remove-user.js'></script>

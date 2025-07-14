@@ -42,7 +42,7 @@ try {
                 header("Location: /register?error=weak+password+capitalize+small+number+special+symbols");
                 break;
             case 'db_error':
-                header("Location: /register?error=database+failed");
+                header("Location: /register?error=username_exists");
                 break;
             default:
                 header("Location: /register?error=registration+failed");

@@ -1,7 +1,6 @@
 <?php
 require_once BASE_PATH . '/bootstrap.php';
-require_once HANDLERS_PATH . '/store.handler.php';
-
+require_once UTILS_PATH . '/item_orders.util.php';
 if (!isset($_SESSION['user'])) {
     echo "<script>window.location.href = '/login?error=Please+Login+Admin';</script>";
     exit;
@@ -13,24 +12,40 @@ $orders = getAllOrders();
 ?>
 
 <div class="view-outer">
-  <div class="view">
-    <h2>Your Orders</h2>
-  </div>
+  <div class="in-outer">
+    <div class="view">
+      <h2>All User Orders</h2>
+    </div>
 
-  <div class="items-container">
-    <?php if (count($orders) === 0): ?>
-      <p style="color: #fff;">NO ORDERS YET.</p>
-    <?php else: ?>
-      <?php foreach ($orders as $order): ?>
-        <div class="item-card">
-          <h3>Order #<?= htmlspecialchars($order['id']) ?></h3>
-          <h3>By User #<?= htmlspecialchars($order['user_id']) ?></h3>
-          <p><strong>Date:</strong> <?= htmlspecialchars($order['created_at']) ?></p>
-          <p><strong>Item:</strong> <?= htmlspecialchars($order['item_name']) ?></p>
-          <p><strong>Quantity:</strong> <?= htmlspecialchars($order['quantity']) ?></p>
-          <p><strong>Total:</strong> <?= htmlspecialchars($order['total']) ?> gold</p>
-        </div>
-      <?php endforeach; ?>
-    <?php endif; ?>
+    <div class="table-container">
+      <?php if (count($orders) === 0): ?>
+        <p style="color: #fff;">NO ONE ORDERED.</p>
+      <?php else: ?>
+        <table class="user-table">
+          <thead>
+            <tr>
+              <th>Item ID#</th>
+              <th>User ID#</th>
+              <th>Item Name</th>
+              <th>Quantity</th>
+              <th>Total</th>
+              <th>Created at</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach ($orders as $order): ?>
+              <tr>
+                <td><?= htmlspecialchars($order['id']) ?></td>
+                <td><?= htmlspecialchars($order['user_id']) ?></td>
+                <td><?= ucwords(htmlspecialchars($order['item_name'])) ?></td>
+                <td><?= ucwords(htmlspecialchars($order['quantity'])) ?></td>
+                <td><?= ucwords(htmlspecialchars($order['total'])) ?></td>
+                <td><?= ucwords(htmlspecialchars($order['created_at'])) ?></td>
+              </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      <?php endif; ?>
+    </div>
   </div>
 </div>

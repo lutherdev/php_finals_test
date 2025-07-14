@@ -51,18 +51,6 @@ function getAllOrders(): array {
     return $items;
 }
 
-function getAllUsers(): array {
-    global $pdo;
-    $stmt = $pdo->prepare("SELECT * FROM users");
-    $stmt->execute();
-    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    echo "<pre>";
-    print_r($users);
-    echo "</pre>";
-
-    return $users;
-}
 
 function getAllMessages(): array {
     global $pdo;

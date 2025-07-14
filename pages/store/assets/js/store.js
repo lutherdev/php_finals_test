@@ -5,11 +5,11 @@ function showOrderSummary() {
     cartBox.scrollIntoView({ behavior: 'smooth' });
 }
 
-function addToCart(item, price, category = "default") {
+function addToCart(id, item, price, category = "default") {
     let itemExists = false;
 
     for (let i = 0; i < cart.length; i++) {
-        if (cart[i].name === item && cart[i].category === category) {
+        if (cart[i].id === id && cart[i].category === category) {
             cart[i].quantity++;
             itemExists = true;
             break;
@@ -17,7 +17,7 @@ function addToCart(item, price, category = "default") {
     }
 
     if (!itemExists) {
-        cart.push({ name: item, price: price, quantity: 1, category: category });
+        cart.push({ id: id, name: item, price: price, quantity: 1, category: category });
     }
 
     updateCart();
@@ -81,5 +81,64 @@ document.addEventListener('DOMContentLoaded', function () {
             updateCart();
         }
     });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const categoryButtons = document.querySelectorAll(".menu-btn");
+  const productCards = document.querySelectorAll(".product-card");
+
+  categoryButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      const category = button.getAttribute("data-category");
+
+      // Highlight active button
+      categoryButtons.forEach(btn => btn.classList.remove("active"));
+      button.classList.add("active");
+
+      // Filter products
+      productCards.forEach(card => {
+        const cardCategory = card.getAttribute("data-category");
+
+        if (category === "all" || cardCategory === category) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    });
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const categoryPopup = document.getElementById("mobile-category-popup");
+  const categoryToggle = document.getElementById("mobile-category-toggle");
+
+  const cartPopup = document.getElementById("mobile-cart-popup");
+  const cartToggle = document.getElementById("mobile-cart-toggle");
+  const cancelBtnMobile = document.getElementById("cancel-btn-mobile");
+
+  // Toggle mobile category popup
+  categoryToggle.addEventListener("click", () => {
+    categoryPopup.classList.toggle("hidden");
+  });
+
+  // Toggle mobile cart popup
+  cartToggle.addEventListener("click", () => {
+    cartPopup.classList.toggle("hidden");
+  });
+
+  // Close when clicking outside content
+  categoryPopup.addEventListener("click", (e) => {
+    if (e.target === categoryPopup) categoryPopup.classList.add("hidden");
+  });
+
+  cartPopup.addEventListener("click", (e) => {
+    if (e.target === cartPopup) cartPopup.classList.add("hidden");
+  });
+
+  // Cancel cart
+  cancelBtnMobile.addEventListener("click", () => {
+    cartPopup.classList.add("hidden");
+  });
 });
 

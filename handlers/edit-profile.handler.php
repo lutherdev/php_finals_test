@@ -8,7 +8,7 @@ Auth::init();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $currentUsername = $_SESSION['user']['username'];
-    $inpUsername = trim($_POST['username']);
+    $inpUsername = $_POST['username'];
     $inpfirstName = trim($_POST['first_name']);
     $inplastName = trim($_POST['last_name']);
     $inpcity = trim($_POST['city']);
@@ -33,11 +33,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ");
             $stmt->execute([
                 ':Username' => $inpUsername,
-                ':firstName' => $inpfirstName,
-                ':lastName' => $inplastName,
-                ':city' => $inpcity,
-                ':province' => $inpprovince,
-                ':street' => $inpstreet,
+                ':firstName' => strtolower($inpfirstName),
+                ':lastName' => strtolower($inplastName),
+                ':city' => strtolower($inpcity),
+                ':province' => strtolower($inpprovince),
+                ':street' => strtolower($inpstreet),
                 ':currentUsername' => $currentUsername
             ]);
             $_SESSION['user']['username'] = $inpUsername;

@@ -23,8 +23,6 @@ if (!is_array($user) || !isset($user['id'])) {
     exit;
 }
 
-error_log("✅ Auth::user() returned: " . print_r($user, true));
-
 try {
     $pdo->beginTransaction();
     error_log("🧪 Current session user: " . print_r($_SESSION['user'], true));
@@ -34,11 +32,11 @@ try {
     foreach ($data['cart'] as $item) {
         $stockStmt = $pdo->prepare("
             SELECT quantity FROM items 
-            WHERE name = :item_name AND category = :item_category
+            WHERE id = :item_id AND category = :item_category
         ");
         $stockStmt->execute([
-            ':item_name' => $item['name'],
-            ':item_category' => ucfirst($item['category'])
+            ':item_id' => strtolower($item['id']),
+            ':item_category' => strtolower($item['category'])
         ]);
         $availableQty = $stockStmt->fetchColumn();
 
@@ -73,13 +71,13 @@ try {
         $updateStmt = $pdo->prepare(
             "UPDATE items
             SET quantity = quantity - :purchased_quantity
-            WHERE name = :item_name AND category = :item_category"
+            WHERE id = :item_id AND category = :item_category"
         );
 
         $updateStmt->execute([
             ':purchased_quantity' => $item['quantity'],
-            ':item_name' => $item['name'],
-            ':item_category' => ucfirst($item['category'])
+            ':item_id' => $item['id'],
+            ':item_category' => strtolower($item['category'])
         ]);
         if ($updateStmt->rowCount() === 0) {
             throw new Exception("No item matched to update for: " . $item['name']);
@@ -113,8 +111,8 @@ try {
         
         $stmt->execute([
             ':user_id' => $user['id'],
-            ':item_name' => $item['name'],
-            ':item_category' => $item['category'],
+            ':item_name' => strtolower($item['name']),
+            ':item_category' => strtolower($item['category']),
             ':quantity' => $item['quantity'],
             ':price' => $item['price'],
             ':total' => $item['price'] * $item['quantity']

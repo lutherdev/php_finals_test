@@ -6,12 +6,12 @@ require_once 'bootstrap.php';
 try {
 
 echo "Dropping old tables…\n";
-foreach (['users', 'items', 'users_items'] as $table) {
+foreach (['users', 'items', 'item_orders', 'users_messages'] as $table) {
 $pdo->exec("DROP TABLE IF EXISTS {$table} CASCADE;");
 }
 
 echo "Applying schema from database/users.model.sql…\n";
-$files = ['database/users.model.sql', 'database/items.model.sql', 'database/item_orders.model.sql'];
+$files = ['database/users.model.sql', 'database/items.model.sql', 'database/item_orders.model.sql', 'database/users_messages.model.sql'];
 foreach ($files as $file){
 $sql = file_get_contents($file);
 

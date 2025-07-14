@@ -1,6 +1,6 @@
 <?php
 require_once BASE_PATH . '/bootstrap.php';
-require_once HANDLERS_PATH . '/store.handler.php'; // This file should contain a getOrdersByUsername() function
+require_once UTILS_PATH .'/users.util.php'; // This file should contain a getOrdersByUsername() function
 
 if (!isset($_SESSION['user'])) {
     echo "<script>window.location.href = '/login?error=Please+Login+Admin';</script>";
@@ -13,26 +13,44 @@ $users = getAllUsers();
 ?>
 
 <div class="view-outer">
-  <div class="view">
-    <h2>EXISTING USERS</h2>
-  </div>
+  <div class="in-outer">
+    <div class="view">
+      <h2>EXISTING USERS</h2>
+    </div>
 
-  <div class="items-container">
-    <?php if (count($users) === 0): ?>
-      <p style="color: #fff;">NO USERS.</p>
-    <?php else: ?>
-      <?php foreach ($users as $user): ?>
-        <div class="item-card">
-          <h3>USER ID#</h3><p><?= htmlspecialchars($user['id']) ?></p>
-          <p><strong>Username:</strong> <?= htmlspecialchars($user['username'])?></p>
-          <p><strong>First Name:</strong> <?= ucwords(htmlspecialchars($user['first_name'])) ?></p>
-          <p><strong>Last Name:</strong> <?= ucwords(htmlspecialchars($user['last_name'])) ?></p>
-          <p><strong>Role:</strong> <?= ucwords(htmlspecialchars($user['role'])) ?></p>
-          <p><strong>City:</strong> <?= ucwords(htmlspecialchars($user['city'])) ?></p>
-          <p><strong>Province:</strong> <?= ucwords(htmlspecialchars($user['province'])) ?></p>
-          <p><strong>Street:</strong> <?= ucwords(htmlspecialchars($user['street'])) ?></p>
-        </div>
-      <?php endforeach; ?>
-    <?php endif; ?>
+    <div class="table-container">
+      <?php if (count($users) === 0): ?>
+        <p style="color: #fff;">NO USERS.</p>
+      <?php else: ?>
+        <table class="user-table">
+          <thead>
+            <tr>
+              <th>User ID#</th>
+              <th>Username</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Role</th>
+              <th>City</th>
+              <th>Province</th>
+              <th>Street</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach ($users as $user): ?>
+              <tr>
+                <td><?= htmlspecialchars($user['id']) ?></td>
+                <td><?= htmlspecialchars($user['username']) ?></td>
+                <td><?= ucwords(htmlspecialchars($user['first_name'])) ?></td>
+                <td><?= ucwords(htmlspecialchars($user['last_name'])) ?></td>
+                <td><?= ucwords(htmlspecialchars($user['role'])) ?></td>
+                <td><?= ucwords(htmlspecialchars($user['city'])) ?></td>
+                <td><?= ucwords(htmlspecialchars($user['province'])) ?></td>
+                <td><?= ucwords(htmlspecialchars($user['street'])) ?></td>
+              </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      <?php endif; ?>
+    </div>
   </div>
 </div>
