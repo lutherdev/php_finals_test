@@ -20,10 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('Location: /edit-profile?error='.$usernameError);
             exit;
         }
-        if ($inpUsername !== $currentUsername || !Auth::checkUser($pdo, $inpUsername)){
-            header('Location: /edit-profile?error=Username+Exists');
-            exit;
-        }
         try {
             $stmt = $pdo->prepare("
                 UPDATE users SET 

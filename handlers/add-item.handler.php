@@ -24,11 +24,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $uploadPath = BASE_PATH . '/public/uploads/images/' . $filename;
 
 
-    if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadPath)) {
-    error_log("✅ Image uploaded successfully to: $uploadPath");
-    } else {
-        error_log("❌ Upload failed. Check permissions or if file exists.");
-    }
+
+    
+    // if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadPath)) {
+    // error_log("✅ Image uploaded successfully to: $uploadPath");
+    // } else {
+    //     error_log("❌ Upload failed. Check permissions or if file exists.");
+    // }
 
     $stmt = $pdo->prepare("INSERT INTO items (name, description, quantity, price, category, img_path, status)
                            VALUES (:name, :description, :quantity, :price, :category, :img_path, :status)");

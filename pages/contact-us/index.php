@@ -1,3 +1,6 @@
+<?php
+$error = $_GET['error'] ?? '';
+?>
 <main class="contactus-container">
 
     <div class="location">
@@ -37,6 +40,9 @@
             <div class="box-button">
                 <button type="submit">Dispatch Scroll</button>
             </div>
+            <?php if (!empty($error)): ?>
+                <p class="error"><?= htmlspecialchars($error) ?></p>
+            <?php endif; ?>
         </form>
     </div>
 

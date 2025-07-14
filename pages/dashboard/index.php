@@ -10,12 +10,12 @@ if (!isset($_SESSION['user'])) {
     <div class="admin-container">
         <div class="admin-grid">
             <div class="admin-card" onclick="location.href='add-item'">
-                <h3>Create Item</h3>
+                <h3>Add Item</h3>
                 <div class="admin-icon">⛏</div>
             </div>
 
             <div class="admin-card" onclick="location.href='view-item'">
-                <h3>Read Item</h3>
+                <h3>View Item</h3>
                 <div class="admin-icon">📜</div>
             </div>
 
@@ -30,6 +30,10 @@ if (!isset($_SESSION['user'])) {
             </div>
         </div>
         <div class="admin-grid">
+            <div class="admin-card" onclick="location.href='role-manager'">
+                <h3>Role Manager</h3>
+                <div class="admin-icon">⛏</div>
+            </div>
             <div class="admin-card" onclick="location.href='view-users'">
                 <h3>View Users</h3>
                 <div class="admin-icon">⛏</div>
