@@ -5,9 +5,6 @@ class Auth{
     public static function init(): void {
     if (session_status() === PHP_SESSION_NONE) { //IF SESSION IS NONE : LIKE NO STARTED SESSION THEN =
         session_start(); // START THE SESSION NOW!
-        if (headers_sent($file, $line)) {
-            error_log("⚠️ Headers already sent in $file on line $line");
-            }   
         } 
     }   
     //FOR LOGGIN IN
@@ -105,7 +102,7 @@ class Auth{
 
 
     public static function checkUser($pdo, $username){
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE LOWER(username) = LOWER(?)");
         $stmt->execute([$username]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         if (!$user){

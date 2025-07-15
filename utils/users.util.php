@@ -8,18 +8,18 @@ function getAllUsers(): array {
     return $users;
 }
 
-function getUserData($user_id): array {
-    global $pdo;
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE id = :user_id");
-    $stmt->execute([':user_id' => $user_id]);
-    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// function getUserData($user_id): array {
+//     global $pdo;
+//     $stmt = $pdo->prepare("SELECT * FROM users WHERE id = :user_id");
+//     $stmt->execute([':user_id' => $user_id]);
+//     $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    echo "<pre>";
-    print_r($users);
-    echo "</pre>";
+//     echo "<pre>";
+//     print_r($users);
+//     echo "</pre>";
 
-    return $users;
-}
+//     return $users;
+// }
 
 function getUserDataa($username): array {
     global $pdo;
@@ -30,8 +30,8 @@ function getUserDataa($username): array {
 
 function insertUser($pdo, $user) {
     $stmt = $pdo->prepare("
-        INSERT INTO users (username, password, first_name, last_name, street, city, province)
-        VALUES (:username, :password, :first_name, :last_name, :street, :city, :province)
+        INSERT INTO users (username, password, first_name, last_name, street, city, province, role)
+        VALUES (:username, :password, :first_name, :last_name, :street, :city, :province, :role)
     ");
     
     $stmt->execute([
@@ -39,6 +39,7 @@ function insertUser($pdo, $user) {
         ':first_name'       => strtolower($user['first_name']),
         ':last_name'       => strtolower($user['last_name']),
         ':password'       => password_hash($user['password'], PASSWORD_DEFAULT),
+        ':role' => $user['username'] === 'Notch' ? 'admin' : 'customer',
         ':street' => strtolower($user['street']),
         ':province' => strtolower($user['province']),
         ':city' => strtolower($user['city']),

@@ -1,6 +1,6 @@
 <?php
 require_once BASE_PATH . '/bootstrap.php';
-require_once UTILS_PATH .'/users.util.php'; // This file should contain a getOrdersByUsername() function
+require_once UTILS_PATH .'/users.util.php';
 
 if (!isset($_SESSION['user'])) {
     echo "<script>window.location.href = '/login?error=Please+Login+Admin';</script>";
@@ -22,34 +22,36 @@ $users = getAllUsers();
       <?php if (count($users) === 0): ?>
         <p style="color: #fff;">NO USERS.</p>
       <?php else: ?>
-        <table class="user-table">
-          <thead>
-            <tr>
-              <th>User ID#</th>
-              <th>Username</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Role</th>
-              <th>City</th>
-              <th>Province</th>
-              <th>Street</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php foreach ($users as $user): ?>
+        <div class="scroll-wrapper">
+          <table class="user-table">
+            <thead>
               <tr>
-                <td><?= htmlspecialchars($user['id']) ?></td>
-                <td><?= htmlspecialchars($user['username']) ?></td>
-                <td><?= ucwords(htmlspecialchars($user['first_name'])) ?></td>
-                <td><?= ucwords(htmlspecialchars($user['last_name'])) ?></td>
-                <td><?= ucwords(htmlspecialchars($user['role'])) ?></td>
-                <td><?= ucwords(htmlspecialchars($user['city'])) ?></td>
-                <td><?= ucwords(htmlspecialchars($user['province'])) ?></td>
-                <td><?= ucwords(htmlspecialchars($user['street'])) ?></td>
+                <th>User ID#</th>
+                <th>Username</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Role</th>
+                <th>City</th>
+                <th>Province</th>
+                <th>Street</th>
               </tr>
-            <?php endforeach; ?>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              <?php foreach ($users as $user): ?>
+                <tr>
+                  <td><?= htmlspecialchars($user['id']) ?></td>
+                  <td><?= htmlspecialchars($user['username']) ?></td>
+                  <td><?= ucwords(htmlspecialchars($user['first_name'])) ?></td>
+                  <td><?= ucwords(htmlspecialchars($user['last_name'])) ?></td>
+                  <td><?= ucwords(htmlspecialchars($user['role'])) ?></td>
+                  <td><?= ucwords(htmlspecialchars($user['city'])) ?></td>
+                  <td><?= ucwords(htmlspecialchars($user['province'])) ?></td>
+                  <td><?= ucwords(htmlspecialchars($user['street'])) ?></td>
+                </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
       <?php endif; ?>
     </div>
   </div>

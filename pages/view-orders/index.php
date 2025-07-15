@@ -13,23 +13,40 @@ $orders = getAllItemsUser($id);
 ?>
 
 <div class="view-outer">
-  <div class="view">
-    <h2>Your Orders</h2>
-  </div>
+  <div class="in-outer">
+    <div class="view">
+      <h2>Your Orders</h2>
+    </div>
 
-  <div class="items-container">
-    <?php if (count($orders) === 0): ?>
-      <p style="color: #fff;">You haven't placed any orders yet.</p>
-    <?php else: ?>
-      <?php foreach ($orders as $order): ?>
-        <div class="item-card">
-          <h3>Order #<?= htmlspecialchars($order['id']) ?></h3>
-          <p><strong>Date:</strong> <?= htmlspecialchars($order['created_at']) ?></p>
-          <p><strong>Item:</strong> <?= htmlspecialchars($order['item_name']) ?></p>
-          <p><strong>Quantity:</strong> <?= htmlspecialchars($order['quantity']) ?></p>
-          <p><strong>Total:</strong> <?= htmlspecialchars($order['total']) ?> gold</p>
+    <div class="table-container">
+      <?php if (count($orders) === 0): ?>
+        <p style="color: #fff;">You haven't placed any orders yet.</p>
+      <?php else: ?>
+        <div class="scroll-wrapper">
+          <table class="user-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Total (Gold)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach ($orders as $order): ?>
+                <tr>
+                  <td><?= htmlspecialchars($order['id']) ?></td>
+                  <td><?= htmlspecialchars($order['created_at']) ?></td>
+                  <td><?= htmlspecialchars($order['item_name']) ?></td>
+                  <td><?= htmlspecialchars($order['quantity']) ?></td>
+                  <td><?= htmlspecialchars($order['total']) ?></td>
+                </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
         </div>
-      <?php endforeach; ?>
-    <?php endif; ?>
+      <?php endif; ?>
+    </div>
   </div>
 </div>

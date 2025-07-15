@@ -1,0 +1,62 @@
+body{
+    margin: 0;
+}
+.main-outer{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.outer-container {
+    font-family: 'MedievalSharp', cursive;
+    background: url(/assets/img/parchment-bg.jpg) no-repeat center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 100vh;
+    padding: 35px;
+    width: 100%;
+    height: 100%;
+}
+
+.knight-img {
+    width: 200px;
+    height: auto;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #4b2e0b;
+    text-shadow: 1px 1px #f1d6a3;
+}
+
+p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.scroll-btn {
+    display: inline-block;
+    background-color: #a67c00;
+    color: #fff4d2;
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(165, 120, 30, 0.6);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.scroll-btn:hover {
+    background-color: #8b6a00;
+    transform: scale(1.05);
+}

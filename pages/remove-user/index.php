@@ -9,12 +9,12 @@ $error = $_GET['error'] ?? '';
 
 <div class="remove-outer">
   <div class="remove">
-    <h2>Remove User</h2>
+    <h2>Delete User</h2>
     <form action="handlers/remove-user.handler.php" method="POST">
         <label>username:</label>
         <input type="text" name="username" required>
 
-        <button type="submit">Remove Item</button>
+        <button type="submit">Delete User</button>
         <?php if (!empty($error)): ?>
           <p class="error"><?= htmlspecialchars($error) ?></p>
         <?php endif; ?>

@@ -1,4 +1,5 @@
 <?php
+$success = $_GET['success'] ?? '';
 $error = $_GET['error'] ?? '';
 ?>
 <main class="center-wrapper">
@@ -21,17 +22,13 @@ $error = $_GET['error'] ?? '';
 
         <div class="comment">
             <h1>Send a Raven</h1>
-            <form action="/handlers/contact.handler.php" method="POST">
+            <form action="/handlers/contact-us.handler.php" method="POST">
                 <div class="box-name">
                     <input type="text" name="name" placeholder="Enter thy Name" required>
                 </div>
 
-                <div class="box-name">
-                    <input type="text" name="username" placeholder="Enter thy username" required>
-                </div>
-
                 <div class="box-email">
-                    <input type="email" name="email" placeholder="Enter thy Address" required>
+                    <input type="email" name="email" placeholder="Enter thy email address" required>
                 </div>
 
                 <div class="box-message">
@@ -43,6 +40,9 @@ $error = $_GET['error'] ?? '';
                 </div>
                 <?php if (!empty($error)): ?>
                     <p class="error"><?= htmlspecialchars($error) ?></p>
+                <?php endif; ?>
+                <?php if (!empty($success)): ?>
+                    <p class="error"><?= htmlspecialchars($success) ?></p>
                 <?php endif; ?>
             </form>
         </div>

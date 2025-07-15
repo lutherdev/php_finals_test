@@ -28,13 +28,13 @@ if (isset($_SESSION['user'])) {
 <div id="mobile-cart-popup" class="mobile-cart-popup hidden">
   <div class="cart-popup-content">
     <aside class="cart-box">
-      <h2>Cart</h2>
-      <ul id="cart-items-mobile"></ul>
-      <div class="total">Total: ₱<span id="cart-total-mobile">0</span></div>
-      <div class='cart-buttons'>
-        <div class='btn-cancel'><button id="checkout-btn-mobile">CHECKOUT</button></div>
-        <div class='btn-cancel'><button id="cancel-btn-mobile">CANCEL</button></div>
-      </div>
+        <h2>Cart</h2>
+        <ul id="cart-items-mobile"></ul>
+        <div class="total">Total: ₱<span id="cart-total-mobile">0</span></div>
+        <div class='cart-buttons'>
+          <div class='btn-cancel'><button id="checkout-btn-mobile">CHECKOUT</button></div>
+          <div class='btn-cancel'><button id="cancel-btn-mobile">CANCEL</button></div>
+        </div>
     </aside>
   </div>
 </div>
@@ -43,7 +43,14 @@ if (isset($_SESSION['user'])) {
   <div class="store-header">
     <h1>Miner's Ware</h1>
     <?php if (isset($user['wallet'])): ?>
-      <h1>Wallet: <?= htmlspecialchars($user['wallet']) ?> gold</h1>
+      <div class="leftside">
+        
+        <a href='/topup'><button class="topupbtn">TOP UP</button></a>
+        <a href='/view-orders'><button class="ordersbtn">YOUR ORDERS</button></a>
+        <div class="walet">
+          <h1>Wallet: <?= htmlspecialchars($user['wallet']) ?> gold</h1>
+        </div>
+      </div>
     <?php endif; ?>
     <div class="store-filters">
     </div>
@@ -78,7 +85,7 @@ if (isset($_SESSION['user'])) {
     <div class="products-image-wrapper">
       <div class="products-grid">
       <?php if (empty($products)): ?>
-        <p style="color:red;">No items found. Check database or item status.</p>
+        <p style="color:black;">No items found. Check database or item status.</p>
       <?php else: ?>
         <?php foreach ($products as $product): 
           $imgPublicPath = '/public/uploads/images/' . $product['img_path'];

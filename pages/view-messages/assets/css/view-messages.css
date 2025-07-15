@@ -91,3 +91,24 @@
       text-shadow: 1px 1px 2px #000;
       margin-bottom: 10px;
     }
+
+    .scroll-wrapper {
+      max-height: 500px;
+      overflow-y: auto;
+      border: 2px solid #a9823a;
+      border-radius: 8px;
+    }
+
+    .scroll-wrapper::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    .scroll-wrapper::-webkit-scrollbar-thumb {
+      background-color: #a9823a;
+      border-radius: 5px;
+    }
+
+    .scroll-wrapper::-webkit-scrollbar-track {
+      background: rgba(44, 36, 26, 0.8);
+    }
+

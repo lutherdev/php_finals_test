@@ -16,34 +16,36 @@ $items = getAllItems();
 
     <div class="table-container">
       <?php if (count($items) === 0): ?>
-        <p style="color: #fff;">NO USERS.</p>
+        <p style="color: #fff;">NO ITEMS.</p>
       <?php else: ?>
-        <table class="user-table">
-          <thead>
-            <tr>
-              <th>Item ID#</th>
-              <th>Item name</th>
-              <th>Description</th>
-              <th>Category</th>
-              <th>Price</th>
-              <th>Quantity</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php foreach ($items as $item): ?>
+        <div class="scroll-wrapper">
+          <table class="user-table">
+            <thead>
               <tr>
-                <td><?= htmlspecialchars($item['id']) ?></td>
-                <td><?= ucwords(htmlspecialchars($item['name'])) ?></td>
-                <td><?= ucwords(htmlspecialchars($item['description'])) ?></td>
-                <td><?= ucwords(htmlspecialchars($item['category'])) ?></td>
-                <td><?= ucwords(htmlspecialchars($item['price'])) ?></td>
-                <td><?= ucwords(htmlspecialchars($item['quantity'])) ?></td>
-                <td><?= htmlspecialchars($item['status']) ?></td>
+                <th>Item ID#</th>
+                <th>Item name</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Status</th>
               </tr>
-            <?php endforeach; ?>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              <?php foreach ($items as $item): ?>
+                <tr>
+                  <td><?= htmlspecialchars($item['id']) ?></td>
+                  <td><?= ucwords(htmlspecialchars($item['name'])) ?></td>
+                  <td><?= ucwords(htmlspecialchars($item['description'])) ?></td>
+                  <td><?= ucwords(htmlspecialchars($item['category'])) ?></td>
+                  <td><?= ucwords(htmlspecialchars($item['price'])) ?></td>
+                  <td><?= ucwords(htmlspecialchars($item['quantity'])) ?></td>
+                  <td><?= htmlspecialchars($item['status']) ?></td>
+                </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
       <?php endif; ?>
     </div>
   </div>

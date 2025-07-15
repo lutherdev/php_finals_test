@@ -36,6 +36,71 @@
   cursor: pointer;
   transition: 0.3s;
 }
+
+.topupbtn {
+  background: #5f4926;
+  border: 2px solid #b0843f;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin: 0 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.topupbtn:hover {
+  background: #a3551e;
+  color: #fff;
+}
+
+.ordersbtn {
+  background: #5f4926;
+  border: 2px solid #b0843f;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin: 0 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.walet {
+  background-color: rgba(44, 36, 26, 0.85);
+  border: 3px solid #d4af37;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+  display: inline-block;
+  max-width: 200px;
+  padding: 10px 15px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.walet h1 {
+  font-size: 1rem;
+  color: #ffecb3;
+  text-shadow: 1px 1px 2px #000;
+  margin: 0;
+}
+
+
+.leftside{
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.ordersbtn:hover {
+  background: #a3551e;
+  color: #fff;
+}
+
 .menu-btn:hover {
   background: #5a4231;
 }

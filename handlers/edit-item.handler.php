@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     } catch (PDOException $e) {
         error_log("Edit item failed: " . $e->getMessage());
-        header("Location: /edit-item?error=PDO+Failed");
+        header("Location: /edit-item?error=No+Id+Exists");
         exit;
     }
 } else {

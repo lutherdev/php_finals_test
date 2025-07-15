@@ -20,6 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare("DELETE FROM users WHERE username = :username");
     $stmt->execute([':username' => $username]);
 
-    header("Location: /remove-user?success=1");
+    header("Location: /remove-user?success=account+deleted");
     exit;
 }

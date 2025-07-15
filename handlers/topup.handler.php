@@ -1,7 +1,6 @@
 <?php
 require_once BASE_PATH . '/bootstrap.php'; 
 require_once UTILS_PATH . '/auth.util.php';
-require_once UTILS_PATH . '/top-up.util.php';
 global $pdo;
 
 Auth::init();

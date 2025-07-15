@@ -1,6 +1,14 @@
-body{
+*{
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+body{
+  font-family: 'MedievalSharp', cursive;
+  background: linear-gradient(rgba(11, 6, 6, 0.92), rgba(30, 15, 15, 0.9)),
+  url('/pages/admin-page/assets/img/admin_bg1.jpg') no-repeat center/cover;
+  color: #f5f3e7;
 }
 
 .topup-outer {

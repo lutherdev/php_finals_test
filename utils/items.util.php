@@ -5,10 +5,6 @@ function getAvailableItems(): array {
     $stmt->execute();
     $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // echo "<pre>";
-    // print_r($items);
-    // echo "</pre>";
-
     return $items;
 }
 
@@ -17,10 +13,6 @@ function getAllItems(): array {
     $stmt = $pdo->prepare("SELECT * FROM items");
     $stmt->execute();
     $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    echo "<pre>";
-    print_r($items);
-    echo "</pre>";
 
     return $items;
 }

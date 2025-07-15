@@ -19,28 +19,28 @@ $messages = getAllMessages();
       <?php if (count($messages) === 0): ?>
         <p style="color: #fff;">NO MESSAGES.</p>
       <?php else: ?>
-        <table class="user-table">
-          <thead>
-            <tr>
-              <th>Message ID</th>
-              <th>Name</th>
-              <th>Username</th>
-              <th>Email</th>
-              <th>Message</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php foreach ($messages as $message): ?>
+        <div class="scroll-wrapper">
+          <table class="user-table">
+            <thead>
               <tr>
-                <td><?= htmlspecialchars($message['id']) ?></td>
-                <td><?= ucwords(htmlspecialchars($message['name'])) ?></td>
-                <td><?= htmlspecialchars($message['username']) ?></td>
-                <td><?= htmlspecialchars($message['email']) ?></td>
-                <td><?= nl2br(htmlspecialchars($message['message'])) ?></td>
+                <th>Message ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Message</th>
               </tr>
-            <?php endforeach; ?>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              <?php foreach ($messages as $message): ?>
+                <tr>
+                  <td><?= htmlspecialchars($message['id']) ?></td>
+                  <td><?= ucwords(htmlspecialchars($message['name'])) ?></td>
+                  <td><?= htmlspecialchars($message['email']) ?></td>
+                  <td><?= nl2br(htmlspecialchars($message['message'])) ?></td>
+                </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
       <?php endif; ?>
     </div>
   </div>
