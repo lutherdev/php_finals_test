@@ -27,11 +27,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ':newRole' => strtolower($newRole),
             ':username' => $username
         ]);
-
+        $_SESSION['user']['role'] = strtolower($newRole);
         if ($stmt->rowCount() > 0) {
             header("Location: /role-manager?success=Role+Updated");
+            exit;
         } else {
             header("Location: /role-manager?error=No+changes+made+or+invalid+User+ID");
+            exit;
         }
         exit;
     } catch (PDOException $e) {

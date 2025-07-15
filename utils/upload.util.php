@@ -5,10 +5,8 @@ include_once UTILS_PATH . '/auth.util.php';
 
 class Upload
 {
-    // Maximum file size (2 MB)
-    public const MAX_BYTES = 2 * 1024 * 1024;
 
-    // Allowed MIME types → file extensions
+    public const MAX_BYTES = 2 * 1024 * 1024;
     public const ALLOWED_TYPES = [
         'image/jpeg' => '.jpg',
         'image/png' => '.png',
@@ -26,7 +24,7 @@ class Upload
      */
     public static function handle(array $file, PDO $pdo, string $type, string $relatedId): array
     {
-        $user = Auth::user();
+        
         // 1) Check for upload errors
         if ($file['error'] !== UPLOAD_ERR_OK) {
             return ['success' => false, 'image_id' => null, 'error' => 'Upload error code ' . $file['error']];
@@ -45,10 +43,9 @@ class Upload
         }
         $ext = self::ALLOWED_TYPES[$mime];
 
-        // 4) Combine Username, ID and role to build a unique filename
-        $role = $user['role'] ?? 'user';
-        $trimmedRole = preg_replace('/[^a-z0-9]+/i', '-', strtolower(trim($role)));
-        $basename = "{$user['username']}-{$user['id']}-{$trimmedRole}";
+        $originalName = pathinfo($file['name'], PATHINFO_FILENAME);
+        $basename = $originalName . '-' . uniqid();
+
         $filename = $basename . $ext;
 
         // if filename already exists delete it
@@ -82,7 +79,7 @@ class Upload
                 // look for existing image metadata
                 $stmt = $pdo->prepare("
                     SELECT id FROM public.images
-                    WHERE user_id = :uid AND filename = :fn
+                    WHERE item_id = :uid AND filename = :fn
                 ");
                 $stmt->execute([':uid' => $relatedId, ':fn' => $filename]);
                 $imageId = $stmt->fetchColumn();
@@ -90,7 +87,7 @@ class Upload
                 $stmt = $pdo->prepare("
                     UPDATE public.images
                     SET filename = :fn, filepath = :fp, mimetype = :mt, size_bytes = :sz, type = :tp
-                    WHERE user_id = :uid AND filename = :fn
+                    WHERE item_id = :uid AND filename = :fn
                     RETURNING id
                 ");
                 $stmt->execute([
@@ -105,7 +102,7 @@ class Upload
             } else {
                 $stmt = $pdo->prepare("
                 INSERT INTO public.images
-                  (user_id, filename, filepath, mimetype, size_bytes, type)
+                  (item_id, filename, filepath, mimetype, size_bytes, type)
                 VALUES
                   (:uid, :fn, :fp, :mt, :sz, :tp)
                 RETURNING id
@@ -122,18 +119,10 @@ class Upload
             }
 
             // 7) If profile, update the users table
-            if ($type === 'profile') {
-                $upd = $pdo->prepare("
-                    UPDATE public.\"users\"
-                       SET profile_image_id = :img
-                     WHERE id = :uid
-                ");
-                $upd->execute([':img' => $imageId, ':uid' => $relatedId]);
-            }
 
-            return ['success' => true, 'image_id' => $imageId, 'error' => null, 'filename' => "/uploads/{$type}/{$filename}"];
+            return ['success' => true, 'id' => $imageId, 'error' => null, 'filename' => "/uploads/{$type}/{$filename}"];
         } catch (PDOException $e) {
-            return ['success' => false, 'image_id' => null, 'error' => 'DB error: ' . $e->getMessage()];
+            return ['success' => false, 'id' => null, 'error' => 'DB error: ' . $e->getMessage()];
         }
     }
 

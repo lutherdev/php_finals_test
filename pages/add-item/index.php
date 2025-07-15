@@ -36,7 +36,7 @@ if (isset($_GET['success'])) {
         </select>
 
         <label>Image:</label>
-        <input type="file" name="image" accept="image/*" required>
+        <input type="file" name="item_image" accept="image/*" required>
 
         <button type="submit">Add Item</button>
     </form>

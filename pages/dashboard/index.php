@@ -4,6 +4,10 @@ if (!isset($_SESSION['user'])) {
     echo "<script>window.location.href = '/login?error=Please+Login+Admin';</script>";
     exit;
 }
+if ($_SESSION['user']['role'] == 'customer'){
+    echo "<script>window.location.href = '/';</script>";
+    exit;
+}
 ?>
 <link rel="stylesheet" href="/pages/dashboard/assets/css/dashboard.css">
 <main class="admin-page">

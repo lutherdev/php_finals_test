@@ -20,7 +20,7 @@ require_once 'bootstrap.php';
 
 echo "Connected to PostgreSQL!\n";
 
-$dbfiles = ['database/users.model.sql', 'database/items.model.sql', 'database/users_messages.model.sql', 'database/item_orders.model.sql'];
+$dbfiles = ['database/users.model.sql', 'database/items.model.sql', 'database/users_messages.model.sql', 'database/item_orders.model.sql', 'database/images.model.sql'];
 
 foreach ($dbfiles as $dbfile){
 $num = 1;

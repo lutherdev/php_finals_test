@@ -1,5 +1,6 @@
 <?php
 require_once BASE_PATH . '/bootstrap.php'; 
+require_once UTILS_PATH . '/upload.util.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['item_name']);
@@ -9,9 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $category = $_POST['category'];
     $status = 'is-active'; 
 
-    //name checker
     $checkStmt = $pdo->prepare("SELECT COUNT(*) FROM items WHERE LOWER(name) = LOWER(:name)");
-    $checkStmt->execute([':name' => $name]);
+    $checkStmt->execute([':name' => strtolower($name)]);
     $count = $checkStmt->fetchColumn();
 
     if ($count > 0) {
@@ -19,21 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    $originalName = basename($_FILES['image']['name']);
-    $filename = uniqid() . '_' . $originalName;
-    $uploadPath = BASE_PATH . '/public/uploads/images/' . $filename;
-
-
-
-    
-    // if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadPath)) {
-    // error_log("✅ Image uploaded successfully to: $uploadPath");
-    // } else {
-    //     error_log("❌ Upload failed. Check permissions or if file exists.");
-    // }
-
     $stmt = $pdo->prepare("INSERT INTO items (name, description, quantity, price, category, img_path, status)
-                           VALUES (:name, :description, :quantity, :price, :category, :img_path, :status)");
+                        VALUES (:name, :description, :quantity, :price, :category, :img_path , :status)
+                        RETURNING id");
 
     $stmt->execute([
         ':name' => $name,
@@ -41,8 +29,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ':quantity' => $quantity,
         ':price' => $price,
         ':category' => $category,
-        ':img_path' => $filename,
+        ':img_path' => '',
         ':status' => $status
+    ]);
+    $itemId = $stmt->fetchColumn();
+
+    // var_dump($_FILES['item_image']);
+    // exit;
+    $imageResult = Upload::handle($_FILES['item_image'], $pdo, 'item', $itemId);
+    
+
+    if (!$imageResult['success']){
+        $pdo->prepare("DELETE FROM items WHERE id = :id")->execute([':id' => $itemId]);
+        header("Location: /add-item?error=" . urlencode($imageResult['error']));
+        exit;
+    }
+    $stmt = $pdo->prepare("UPDATE items SET img_path = :path WHERE id = :id");
+    $stmt->execute([
+        ':path' => $imageResult['filename'], 
+        ':id' => $itemId
     ]);
 
     header("Location: /add-item?success=1");

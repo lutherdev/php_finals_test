@@ -88,12 +88,12 @@ if (isset($_SESSION['user'])) {
         <p style="color:black;">No items found. Check database or item status.</p>
       <?php else: ?>
         <?php foreach ($products as $product): 
-          $imgPublicPath = '/public/uploads/images/' . $product['img_path'];
-          $imgStaticPath = '/pages/store/assets/img/' . $product['img_path'];
-
-          $localUploadPath = BASE_PATH . '/public/uploads/images/' . $product['img_path'];
-          $localStaticPath = BASE_PATH . '/pages/store/assets/img/' . $product['img_path'];
+          $imgPublicPath = $product['img_path'];
+          $localUploadPath = BASE_PATH . $product['img_path'];
           
+          $imgStaticPath = '/pages/store/assets/img/' . $product['img_path'];
+          $localStaticPath = PAGE_PATH . '/store/assets/img/' . $product['img_path'];
+
         if (file_exists($localUploadPath)) {
             $finalImagePath = $imgPublicPath;
         } elseif (file_exists($localStaticPath)) {
