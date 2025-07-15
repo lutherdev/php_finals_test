@@ -9,8 +9,9 @@ function head(string $pageTitle, string $pageCss = '') {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title><?= htmlEscape($pageTitle) ?></title>
+        <link rel="icon" type="image/png" href="/assets/img/mineforgefav.png">
         <link rel="stylesheet" href="assets/css/nav.component.css">
-        <link rel="icon" type="image/png" href="/assets/img/mineforge.png">
+        
         <?php if (!empty($pageCss)): ?>
             <link rel="stylesheet" href="<?= htmlEscape($pageCss) ?>">
         <?php endif; ?>

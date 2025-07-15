@@ -25,6 +25,7 @@ body {
 .logo-img {
     height: 50px;
     width: auto;
+    display: block;
 }
 .logo-text {
     font-family: 'MedievalSharp', cursive;
@@ -132,6 +133,10 @@ body {
         display: block;
     }
 
+    .navbar-logo .logo-text {
+        display: none;
+    }
+
     .navbar-menu {
         position: fixed;
         top: 7.9rem;
@@ -148,7 +153,7 @@ body {
     }
 
     .navbar-menu.active {
-         left: 0;
+        left: 0;
     }
 
     .navbar-item {
