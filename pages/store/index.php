@@ -92,7 +92,7 @@ if (isset($_SESSION['user'])) {
           $localUploadPath = BASE_PATH . $product['img_path'];
           
           $imgStaticPath = '/pages/store/assets/img/' . $product['img_path'];
-          $localStaticPath = PAGE_PATH . '/store/assets/img/' . $product['img_path'];
+          $localStaticPath = PAGES_PATH . '/store/assets/img/' . $product['img_path'];
 
         if (file_exists($localUploadPath)) {
             $finalImagePath = $imgPublicPath;

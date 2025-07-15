@@ -41,7 +41,6 @@ try {
         $availableQty = $stockStmt->fetchColumn();
 
         if ($availableQty === false) {
-            http_response_code(400);
             echo json_encode(["message" => "Item not found: {$item['name']}"]);
             exit;
         }
@@ -124,7 +123,7 @@ try {
         }
     }
     $pdo->commit();
-    echo json_encode(["message" => "Order placed successfully."]); //ETO UNG PARANG REPLY SA PINASA, NIRERECIEVE PAPUNTA DUN SA RESPONSE SA STORE.JS
+    echo json_encode(["message" => "Order placed successfully."]);
 
 } catch (Exception $e) {
     $pdo->rollBack();

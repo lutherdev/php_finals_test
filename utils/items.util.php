@@ -25,11 +25,11 @@ function insertItem($pdo, $item) {
     
     $stmt->execute([
         ':name' => strtolower($item['name']),
-        ':price' => $item['price'],
         ':desc' => strtolower($item['description']),
+        ':price' => $item['price'],
         ':qty' => $item['quantity'],
         ':cat' => strtolower($item['category']),
-        ':img' => basename($item['image']),
+        ':img' => $item['image'],
         ':status' => strtolower($item['status']),
     ]);
 }

@@ -24,11 +24,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         RETURNING id");
 
     $stmt->execute([
-        ':name' => $name,
+        ':name' => strtolower($name),
         ':description' => $description,
-        ':quantity' => $quantity,
         ':price' => $price,
-        ':category' => $category,
+        ':quantity' => $quantity,
+        ':category' => strtolower($category),
         ':img_path' => '',
         ':status' => $status
     ]);
